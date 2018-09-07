@@ -1,0 +1,7 @@
+E:\User Files\GitHub\TechLoadingMod\TechLoadingMod\TechLoadingMod\bin\Debug\mod.json
+E:\User Files\GitHub\TechLoadingMod\TechLoadingMod\TechLoadingMod\bin\Debug\TechLoadingMod.dll
+E:\User Files\GitHub\TechLoadingMod\TechLoadingMod\TechLoadingMod\bin\Debug\TechLoadingMod.pdb
+E:\User Files\GitHub\TechLoadingMod\TechLoadingMod\TechLoadingMod\obj\Debug\TechLoadingMod.csprojResolveAssemblyReference.cache
+E:\User Files\GitHub\TechLoadingMod\TechLoadingMod\TechLoadingMod\obj\Debug\TechLoadingMod.csproj.CoreCompileInputs.cache
+E:\User Files\GitHub\TechLoadingMod\TechLoadingMod\TechLoadingMod\obj\Debug\TechLoadingMod.dll
+E:\User Files\GitHub\TechLoadingMod\TechLoadingMod\TechLoadingMod\obj\Debug\TechLoadingMod.pdb

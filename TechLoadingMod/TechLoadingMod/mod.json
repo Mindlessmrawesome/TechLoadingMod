@@ -1,0 +1,9 @@
+{
+  "Id": "mindless.ttmm.techloading.mod",
+  "DisplayName": "Tech Saving Mod",
+  "Author": "Mindlessmrawesome",
+  "Version": "1.0.0",
+  "Enable": true,
+  "AssemblyName": "TechLoadingMod.dll",
+  "EntryMethod": "TechLoadingMod.QPatch.Main"
+}
