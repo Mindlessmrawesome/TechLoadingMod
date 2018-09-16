@@ -29,8 +29,11 @@ namespace TechLoadingMod
             [HarmonyPatch(typeof(PopulationTable), "UpdatePopulation")] // use brackets to add an attribute to whatever class/domain comes below it (not make, add to objects below)
             static class LoadXMLTechsTOPopulation // Because of attribute, Harmony will use this every time UpdatePopulation is called by the game
             {
-                static void Postfix() // Called after 
+                static void Postfix(PopulationTable __instance) // Called after 
                 {
+                    foreach (var thing in __instance.m_FolderTechs) //a system operator that does a thing for each of the specified things in the parenthesis
+                        Debug.Log(thing.m_folderName); // what the foreach does 
+
                     if (Directory.Exists(XMLPath)) //tests to see if the XMLpath directory exists
                     {
                         //does magical loading stuff below
@@ -44,11 +47,15 @@ namespace TechLoadingMod
 
                             var tankPreset = TankPreset.CreateInstance();
                             tankPreset.SaveTank(tech, false, false);
-
-                            PopulationTable.m_FolderTechs[0].m_Presets.Add(tankPreset);
+                            
+                            __instance.m_FolderTechs[0].m_Presets.Add(tankPreset);
 
                             UnityEngine.GameObject.DestroyImmediate(tech.gameObject);
                         }
+                    }
+                    else
+                    {
+                        Debug.Log("XML folder does not exist! " + XMLPath);
                     }
                 }
             }
