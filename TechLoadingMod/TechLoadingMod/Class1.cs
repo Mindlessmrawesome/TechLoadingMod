@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Harmony;
 using UnityEngine;
 using System.Reflection;
+using System.Xml;
 
 namespace TechLoadingMod
 {
@@ -32,7 +33,7 @@ namespace TechLoadingMod
                 static void Postfix(PopulationTable __instance) // Called after 
                 {
                     foreach (var thing in __instance.m_FolderTechs) //a system operator that does a thing for each of the specified things in the parenthesis
-                        Debug.Log(thing.m_folderName); // what the foreach does 
+                        Debug.Log(thing.m_FolderName); // what the foreach does 
 
                     if (Directory.Exists(XMLPath)) //tests to see if the XMLpath directory exists
                     {
@@ -50,7 +51,16 @@ namespace TechLoadingMod
                             
                             __instance.m_FolderTechs[0].m_Presets.Add(tankPreset);
 
-                            UnityEngine.GameObject.DestroyImmediate(tech.gameObject);
+                            tech.visible.RemoveFromGame();
+
+                            try
+                            {
+                                UnityEngine.GameObject.DestroyImmediate(tech.gameObject);
+                            }
+                            catch
+                            {
+                                Debug.Log("Could not remove XML GameObject!");
+                            }
                         }
                     }
                     else
@@ -66,7 +76,6 @@ namespace TechLoadingMod
 
     public static class ExundXMLHandler //static meaning it can only have static members, meaning that no part of this class needs to be instanced to use. Which it shouldn't be.
     {
-        bool saveFail; // for use in my thing that I was gonna make BEFORE whitepaw did... something
         /// <summary>
         /// Save Techs as XML Files
         /// </summary>
@@ -78,10 +87,9 @@ namespace TechLoadingMod
             {
                 Directory.CreateDirectory(path);
                 Console.WriteLine("XMLSave : Specified path \"" + path + "\" doesn't exists !");
-                saveFail = false; //this will stay here as a reminder of that one time when I tried to make something on my own.   :(
                 //rip in peace
             }
-            XmlWriter saver = JsonConvert.Create(Path.Combine(path, tech.name + ".xml"), new XmlWriterSettings { Indent = true });
+            XmlWriter saver = XmlWriter.Create(Path.Combine(path, tech.name + ".xml"), new XmlWriterSettings { Indent = true });
 
             saver.WriteStartDocument();
             saver.WriteStartElement("Tech");
@@ -154,7 +162,8 @@ namespace TechLoadingMod
                 return null;
             }
 
-            Tank tech = Singleton.Manager<ManSpawn>.inst.SpawnEmptyTech(0, position, rotation, true, false, TechXML.GetElementsByTagName("Tech")[0].Attributes["Name"].Value);
+            var visible = Singleton.Manager<ManSpawn>.inst.SpawnEmptyTechRef(0, position, rotation, true, false, TechXML.GetElementsByTagName("Tech")[0].Attributes["Name"].Value).visible;
+            Tank tech = visible.tank;
 
             for (int i = 0; i < TechXML.GetElementsByTagName("Block").Count; i++)
             {
@@ -172,7 +181,7 @@ namespace TechLoadingMod
                         var cahedLocalPositionXML = TechXML.SelectNodes("//BlockSpec/IntVector3")[i].Attributes;
                         IntVector3 localPositionIntVector = new IntVector3(int.Parse(cahedLocalPositionXML["x"].Value), int.Parse(cahedLocalPositionXML["y"].Value), int.Parse(cahedLocalPositionXML["z"].Value));
 
-                        tech.blockman.AddBlock(block, localPositionIntVector, new OrthoRotation(OrthoRot));
+                        tech.blockman.AddBlock(ref block, localPositionIntVector, new OrthoRotation(OrthoRot));
 
                         var localPositionXML = TechXML.SelectNodes("//Transform/Position")[i].Attributes;
                         Vector3 localPosition = new Vector3(float.Parse(localPositionXML["x"].Value), float.Parse(localPositionXML["y"].Value), float.Parse(localPositionXML["z"].Value));
@@ -208,7 +217,7 @@ namespace TechLoadingMod
                     var cahedLocalPositionXML = TechXML.SelectNodes("//BlockSpec/IntVector3")[i].Attributes;
                     IntVector3 localPositionIntVector = new IntVector3(int.Parse(cahedLocalPositionXML["x"].Value), int.Parse(cahedLocalPositionXML["y"].Value), int.Parse(cahedLocalPositionXML["z"].Value));
 
-                    tech.blockman.AddBlock(block, localPositionIntVector, new OrthoRotation(OrthoRot));
+                    tech.blockman.AddBlock(ref block, localPositionIntVector, new OrthoRotation(OrthoRot));
 
                     //if (BlockXML.Attributes["IsRootBlock"] != null) tech.blockman.SetRootBlock(block);
 
@@ -231,7 +240,8 @@ namespace TechLoadingMod
                 }
             }
 
-            if (tech.blockman.blockCount == 0) tech.blockman.AddBlock(Singleton.Manager<ManSpawn>.inst.SpawnBlock(BlockTypes.GSOCockpit_111, Vector3.zero, Quaternion.identity), IntVector3.zero);
+            var newBlock = Singleton.Manager<ManSpawn>.inst.SpawnBlock(BlockTypes.GSOCockpit_111, Vector3.zero, Quaternion.identity);
+            if (tech.blockman.blockCount == 0) tech.blockman.AddBlock(ref newBlock, IntVector3.zero);
 
             return tech;
         }
@@ -270,8 +280,6 @@ namespace TechLoadingMod
             if (!ShowGUI) // if it doesn't show a gui
                 return; // Get the frick out of here if ShowGUI is not true
             
-            GUI.TextField(new Rect(Screen.width * .7f, Screen.height * .8f, 500, Screen.height * 0.2f), log); // I do not know what you mean by parameters ( I know what pareameters are but not what they need to be)
-
             if (GUI.Button(new Rect(Screen.width * .7f, Screen.height * .8f - 30f /* Offset button to near bottom of the screen */, 500, 30), "Save current tech as .xml", fontSize))
             {
                 Tank playerTank = Singleton.playerTank;
