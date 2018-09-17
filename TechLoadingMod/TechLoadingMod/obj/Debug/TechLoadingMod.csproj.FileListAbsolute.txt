@@ -12,3 +12,15 @@ C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\TechLoadingMod\obj\Debug\Tech
 C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\TechLoadingMod\obj\Debug\TechLoadingMod.csproj.CoreCompileInputs.cache
 C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\TechLoadingMod\obj\Debug\TechLoadingMod.dll
 C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\TechLoadingMod\obj\Debug\TechLoadingMod.pdb
+C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\XML Tech Loading Mod\mod.json
+C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\XML Tech Loading Mod\TechLoadingMod.dll
+C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\XML Tech Loading Mod\TechLoadingMod.pdb
+C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\XML Tech Population Adder\mod.json
+C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\XML Tech Population Adder\TechLoadingMod.dll
+C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\XML Tech Population Adder\TechLoadingMod.pdb
+C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\XML Populator\mod.json
+C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\XML Populator\TechLoadingMod.dll
+C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\XML Populator\TechLoadingMod.pdb
+C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\build\XML Populator\mod.json
+C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\build\XML Populator\TechLoadingMod.dll
+C:\VS Projects\repos\TechLoadingMod\TechLoadingMod\build\XML Populator\TechLoadingMod.pdb

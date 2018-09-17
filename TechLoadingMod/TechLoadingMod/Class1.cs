@@ -267,19 +267,19 @@ namespace TechLoadingMod
         bool ShowGUI = true;
         GUIStyle fontSize;
 
-        public ExecuteButton() // Public constructor; This is called whenever a new instance is created. An alternative is 'void Start()' if it is in a MonoBehaviour class
-        {
-            fontSize = new GUIStyle(GUI.skin.button); // if you want to use it for a button
-            fontSize.fontSize = 22; //How big you want the text, fill it out here 
-            fontSize.alignment = TextAnchor.MiddleLeft;// This is an optional change with what you would like| oh yeah I used that in my thing
-            fontSize.normal.textColor = Color.white;
-        }
-
         void OnGUI()
         {
             if (!ShowGUI) // if it doesn't show a gui
                 return; // Get the frick out of here if ShowGUI is not true
             
+            if (fontSize == null)
+            {
+                fontSize = new GUIStyle(GUI.skin.button); // if you want to use it for a button
+                fontSize.fontSize = 22; //How big you want the text, fill it out here 
+                fontSize.alignment = TextAnchor.MiddleLeft;// This is an optional change with what you would like| oh yeah I used that in my thing
+                fontSize.normal.textColor = Color.white;
+            }
+
             if (GUI.Button(new Rect(Screen.width * .7f, Screen.height * .8f - 30f /* Offset button to near bottom of the screen */, 500, 30), "Save current tech as .xml", fontSize))
             {
                 Tank playerTank = Singleton.playerTank;
